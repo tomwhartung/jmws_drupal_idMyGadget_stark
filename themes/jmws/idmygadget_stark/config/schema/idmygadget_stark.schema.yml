@@ -1,5 +1,5 @@
-# Schema for the configuration files of the Stark theme.
+# Schema for the configuration files of the IdMyGadget Stark theme.
 
-stark.settings:
+idmygadget_stark.settings:
   type: theme_settings
-  label: 'Stark settings'
+  label: 'IdMyGadget Stark settings'
