@@ -1,0 +1,32 @@
+<?php
+/*
+ * Theme file.  Purpose and goal: TBD.
+ */
+print '<p>Hi from the Theme file (idmygadget_stark.theme)!</p>';
+// $hi_text = 'Hi Text!';
+
+global $vars;
+$vars['hi_text'] = 'Hi Text in global $vars';
+/**
+ * Preprocess the page
+ */
+function idmygadget_stark_preprocess_page( &$vars ) {
+  $sysMaintConfig = \Drupal::config('system.maintenance');
+  $message  = $sysMaintConfig->get('message');
+  $starkIdmgConfig = \Drupal::config('starkIdMyGadget.detector');
+  $detector  = $starkIdmgConfig->get('detector');
+  $gadgetdetector  = $starkIdmgConfig->get('gadgetdetector');
+  $sitenamephone  = $starkIdmgConfig->get('sitenamephone');
+  $sitenametablet  = $starkIdmgConfig->get('sitenametablet');
+  $sitenamedesktop  = $starkIdmgConfig->get('sitenamedesktop');
+  $langcode = $starkIdmgConfig->get('langcode');
+  // print '<p>Hi from starkIdMyGadget_preprocess_page in the Theme file!</p>';
+  $vars['hi_text'] = 'Hi Text in starkIdMyGadget_preprocess_page';
+  $vars['config_text'] = 'message = ' . $message;
+  $vars['detector_text'] = 'detector = "' . $detector . '"; gadgetdetector = "' . $gadgetdetector . '"';
+  $vars['sitenamephone_text'] = 'sitenamephone = "' . $sitenamephone . '"';
+  $vars['sitenametablet_text'] = 'sitenametablet = "' . $sitenametablet . '"';
+  $vars['sitenamedesktop_text'] = 'sitenamedesktop = "' . $sitenamedesktop . '"';
+  $vars['langcode_text'] = 'langcode = "' . $langcode . '"';
+}
+?>
