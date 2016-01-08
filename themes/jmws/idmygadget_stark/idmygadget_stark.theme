@@ -21,6 +21,11 @@ function idmygadget_stark_preprocess_page( &$vars ) {
   //  return to this logic if and when the drupal_check_module function is fixed.
   // include_once DRUPAL_ROOT . '/core/includes/install.inc';
   // $idmygadgetIsInstalled = drupal_check_module( 'idmygadget' );
+  $config = \Drupal::config('idmygadget.settings');
+  $gadgetDetector = $config->get('idmygadget_gadget_detector');
+  $showSiteNamePhone = $config->get('idmygadget_show_site_name_phone');
+  $showSiteNameTablet = $config->get('idmygadget_show_site_name_tablet');
+  $showSiteNameDesktop = $config->get('idmygadget_show_site_name_desktop');
 
   $vars['hi_text'] = 'Initializing hi_text';
   $vars['hiText'] = 'Initializing hiText';
@@ -29,26 +34,34 @@ function idmygadget_stark_preprocess_page( &$vars ) {
     unset( $jmwsIdMyGadget->errorMessage );
   }
   else {
-    $idMyGadgetInfoFile = DRUPAL_ROOT . '/modules/jmws/idmygadget/idmygadget.info.yml';
-    $vars['hi_text'] = '$idMyGadgetInfoFile = "' . $idMyGadgetInfoFile . '"';
-    if ( file_exists( $idMyGadgetInfoFile ) ) {
-      $vars['hiText'] = 'The idMyGadgetInfoFile exists!';
-    } else {
-      $vars['hiText'] = 'The idMyGadgetInfoFile does NOT exist.';
-    }
-    idmygadget_stark_check_idMyGadget_installation();
+    $vars['hi_text'] = 'Instantiating the jmwsIdMyGadget object, if we can...';
+    idmygadget_stark_instantiate_jmwsIdMyGadget_object();
   }
 
-  $config = \Drupal::config('idmygadget.settings');
-  $gadgetDetector = $config->get('idmygadget_gadget_detector');
-  // idmygadget_show_site_name_
-  $showSiteNamePhone = $config->get('idmygadget_show_site_name_phone');
-  $showSiteNameTablet = $config->get('idmygadget_show_site_name_tablet');
-  $showSiteNameDesktop = $config->get('idmygadget_show_site_name_desktop');
+  if (isset($jmwsIdMyGadget) ) {
+    $vars['hiText'] = 'Now the jmwsIdMyGadget object isset!';
+  }
+
   $vars['gadgetDetectorText'] = 'gadgetDetector = "' . $gadgetDetector . '"';
   $vars['showSiteNamePhoneText'] = '$showSiteNamePhone = "' . $showSiteNamePhone . '"';
   $vars['showSiteNameTabletText'] = '$showSiteNameTablet = "' . $showSiteNameTablet . '"';
   $vars['showSiteNameDesktopText'] = '$showSiteNameDesktop = "' . $showSiteNameDesktop . '"';
+}
+
+function idmygadget_stark_instantiate_jmwsIdMyGadget_object() {
+  $idMyGadgetInfoFile = DRUPAL_ROOT . '/modules/jmws/idmygadget/idmygadget.info.yml';
+  if ( file_exists( $idMyGadgetInfoFile ) ) {
+    if ( isset($gadgetDetector) ) {
+      idMyGadget_stark_get_the_service();
+    }
+  }
+  idmygadget_stark_check_idMyGadget_installation();
+}
+function idMyGadget_stark_get_the_service() {
+  require_once DRUPAL_ROOT . '/modules/jmws/idmygadget/src/IdMyGadgetService.php';
+  // This gives an error ...
+  // $idMyGadgetService = new Drupal\idmygadget\IdMyGadgetService();
+  $idMyGadgetService = Drupal::service( 'idmygadget.idmygadget_service' );
 }
 
 /**
