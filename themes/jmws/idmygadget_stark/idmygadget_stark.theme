@@ -27,19 +27,13 @@ function idmygadget_stark_preprocess_page( &$vars ) {
   $showSiteNameTablet = $config->get('idmygadget_show_site_name_tablet');
   $showSiteNameDesktop = $config->get('idmygadget_show_site_name_desktop');
 
-  $vars['hi_text'] = 'Initializing hi_text';
-  $vars['hiText'] = 'Initializing hiText';
+  require_once( 'src/JmwsIdMyGadget/JmwsIdMyGadgetThemeService.php' );
+  $jmwsIdMyGadgetThemeService = new JmwsIdMyGadgetThemeService();
+  $idMyGadgetService = $jmwsIdMyGadgetThemeService->getService();
+  $vars['sanityCheckText'] = 'SanityCheckString: ' . $jmwsIdMyGadget->getSanityCheckString();
 
-  if (isset($jmwsIdMyGadget) ) {
-    unset( $jmwsIdMyGadget->errorMessage );
-  }
-  else {
-    $vars['hi_text'] = 'Instantiating the jmwsIdMyGadget object, if we can...';
-    idmygadget_stark_instantiate_jmwsIdMyGadget_object();
-  }
-
-  if (isset($jmwsIdMyGadget) ) {
-    $vars['hiText'] = 'Now the jmwsIdMyGadget object isset!';
+  if ( ! isset($idMyGadgetService) ) {
+    drupal_set_message( t($jmwsIdMyGadgetThemeService ->getErrorMessage()), 'error' );
   }
 
   $vars['gadgetDetectorText'] = 'gadgetDetector = "' . $gadgetDetector . '"';
