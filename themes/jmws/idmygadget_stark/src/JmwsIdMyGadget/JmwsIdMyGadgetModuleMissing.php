@@ -2,7 +2,7 @@
 /**
  * Defines a class we can use to prevent crashing (with a null pointer error)
  * when device detection is not readily available, such as when the idMyGadget
- * plugin is not installed or not active.
+ * module is not installed or not active.
  */
 if( !defined('DS') )
 {
@@ -19,14 +19,14 @@ define( 'IDMYGADGET_ERROR_PROLOG',
  * Error message for when the plugin is not installed
  */
 define( 'IDMYGADGET_NOT_INSTALLED',
-	IDMYGADGET_ERROR_PROLOG . '<p>It appears this module is <span class="idmygadget-error">not installed</span>.</p>' .
-	'<p>Please <span class="idmygadget-error">install and activate the module,</span> which is available on github, or use a different theme.</p></div>' );
+	IDMYGADGET_ERROR_PROLOG . '<p>It appears the idmygadget module has <span class="idmygadget-error">not been downloaded, installed, and enabled</span>.</p>' .
+	'<p>Please <span class="idmygadget-error">download, install, and activate the module,</span> which is available on github, or use a different theme.</p></div>' );
 /**
  * Error message for when the plugin is not active
  */
 define( 'IDMYGADGET_NOT_ACTIVE',
-	IDMYGADGET_ERROR_PROLOG . '<p>It appears this module is <span class="idmygadget-error">installed but not active</span>.</p>' .
-	'<p>Please <span class="idmygadget-error">activate the module</span> in the Drupal administration console, or use a different theme.</p></div>' );
+	IDMYGADGET_ERROR_PROLOG . '<p>It appears the idmygadget module has <span class="idmygadget-error">been downloaded, but not installed and enabled</span>.</p>' .
+	'<p>Please <span class="idmygadget-error">install and enable the module</span> in the Drupal administration console, or use a different theme.</p></div>' );
 /**
  * Error message for when there is an unknown error (bug?)
  */
@@ -37,10 +37,6 @@ define( 'IDMYGADGET_UNKNOWN_ERROR',
 
 class JmwsIdMyGadgetModuleMissing
 {
-	/**
-	 * Location of the plugin file.  We need to know if it's not installed and active.
-	 */
-	const IDMYGADGET_INFO_FILE = 'modules/jmws/idmygadget/idmygadget.info.yml';
 	/**
 	 * Error message, set only when there's an error
 	 * @var type String
@@ -112,5 +108,16 @@ class JmwsIdMyGadgetModuleMissing
 	public function getGadgetDetectorStringChar()
 	{
 		return '?';
+	}
+	/**
+	 * For development only! Please remove when code is stable.
+	 * Displaying some values that can help us make sure we haven't inadvertently
+	 * broken something while we are actively working on this.
+	 * @return string
+	 */
+	public function getSanityCheckString()
+	{
+		$returnValue = '?/?/?/(module missing)';
+		return $returnValue;
 	}
 }
