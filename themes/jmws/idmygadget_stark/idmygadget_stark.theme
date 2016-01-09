@@ -12,24 +12,17 @@ $vars['hi_text'] = 'In the theme file we are setting the hi_text in the global v
  * Preprocess the page
  */
 function idmygadget_stark_preprocess_page( &$vars ) {
-  global $jmwsIdMyGadget;
-  // $jmwsIdMyGadget = new IdMyGadgetService();
-  //
-  // Tried to use drupal_check_module but it is not working at this time.
-  // See experimental code saved just now in the jmws_drupal_stark_idMyGadget-d8-first_try repo.
-  // Fortunately we have a work-around, but we might want to
-  //  return to this logic if and when the drupal_check_module function is fixed.
-  // include_once DRUPAL_ROOT . '/core/includes/install.inc';
-  // $idmygadgetIsInstalled = drupal_check_module( 'idmygadget' );
   $config = \Drupal::config('idmygadget.settings');
   $gadgetDetector = $config->get('idmygadget_gadget_detector');
   $showSiteNamePhone = $config->get('idmygadget_show_site_name_phone');
   $showSiteNameTablet = $config->get('idmygadget_show_site_name_tablet');
   $showSiteNameDesktop = $config->get('idmygadget_show_site_name_desktop');
 
+  // global $jmwsIdMyGadget;
   require_once( 'src/JmwsIdMyGadget/JmwsIdMyGadgetThemeService.php' );
   $jmwsIdMyGadgetThemeService = new JmwsIdMyGadgetThemeService();
   $idMyGadgetService = $jmwsIdMyGadgetThemeService->getService();
+  $jmwsIdMyGadget = $idMyGadgetService->jmwsIdMyGadget;
   $vars['sanityCheckText'] = 'SanityCheckString: ' . $jmwsIdMyGadget->getSanityCheckString();
 
   if ( ! isset($idMyGadgetService) ) {
