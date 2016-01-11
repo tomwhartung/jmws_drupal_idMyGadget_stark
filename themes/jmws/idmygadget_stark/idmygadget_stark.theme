@@ -8,11 +8,11 @@ use Drupal\idmygadget;
  * Preprocess the page
  */
 function idmygadget_stark_preprocess_page( &$vars ) {
-  // global $jmwsIdMyGadget;
+  global $jmwsIdMyGadget;
   require_once( 'src/JmwsIdMyGadget/JmwsIdMyGadgetThemeService.php' );
   $jmwsIdMyGadgetThemeService = new JmwsIdMyGadgetThemeService();
   $idMyGadgetService = $jmwsIdMyGadgetThemeService->getService();
-  $jmwsIdMyGadget = $idMyGadgetService->jmwsIdMyGadget;
+  // $jmwsIdMyGadget = $idMyGadgetService->jmwsIdMyGadget;
   $vars['sanityCheckText'] = 'SanityCheckString: ' . $jmwsIdMyGadget->getSanityCheckString();
 
   if ( ! isset($idMyGadgetService) ) {
