@@ -15,7 +15,9 @@ function idmygadget_stark_preprocess_page( &$vars ) {
   // $jmwsIdMyGadget = $idMyGadgetService->jmwsIdMyGadget;
   $vars['sanityCheckText'] = $jmwsIdMyGadget->getSanityCheckString();
   $logoNameTitleDescriptionHtml = $jmwsIdMyGadget->getLogoNameTitleDescriptionHtml();
-  error_log( 'strlen($logoNameTitleDescriptionHtml): ' . strlen($logoNameTitleDescriptionHtml) );
+  // $vars['page.header'] = $logoNameTitleDescriptionHtml;
+  // error_log( 'strlen($logoNameTitleDescriptionHtml): ' . strlen($logoNameTitleDescriptionHtml) );
+  $vars['logoNameTitleDescriptionHtml'] = $logoNameTitleDescriptionHtml;
 
   if ( ! isset($idMyGadgetService) ) {
     drupal_set_message( t($jmwsIdMyGadgetThemeService ->getErrorMessage()), 'error' );
