@@ -4,3 +4,21 @@ description: 'Integrating idMyGadget device detection with Stark.'
 package: Jmws
 core: 8.x
 base theme: false
+#
+# Adding a regions section, so we can add our phone nav regions to all the default regions
+# Reference: https://api.drupal.org/api/drupal/core!modules!system!templates!page.html.twig/8
+#
+regions:
+  phone_header_nav: 'Phone Header Nav'
+  phone_footer_nav: 'Phone Footer Nav'
+  header: Header
+  primary_menu: 'Primary menu'
+  secondary_menu: 'Secondary menu'
+  highlighted: Highlighted
+  help: 'Help'
+  content: Content
+  sidebar_first: 'Sidebar first'
+  sidebar_second: 'Sidebar second'
+  footer: 'Footer'
+  breadcrumb: Breadcrumb
+
