@@ -2,17 +2,24 @@
 /*
  * Theme file.  Get the idmygadget service, instantiating the global object in the process
  */
-use Drupal\idmygadget;
-
+//
+// -------------------------------------------------------------
+// *** Begin cusTOMizations made to support device detection ***
+// -------------------------------------------------------------
+//
 /**
- * Preprocess the page
+ * Preprocess the page by instantiating an idMyGadget object (and setting an error message as appropriate)
+ * This object should be based on code in the module, but there is no guarantee that the module is installed
+ * Therefore we use the JmwsIdMyGadgetThemeService class, a copy of which is included in this theme
+ * If there is an issue, that class will diagnose and handle it, and
+ *    even instantiate a JmwsIdMyGadgetModuleMissing object if necessary
  */
 function idmygadget_stark_preprocess_page( &$vars ) {
   global $jmwsIdMyGadget;
   require_once( 'src/JmwsIdMyGadget/JmwsIdMyGadgetThemeService.php' );
   $jmwsIdMyGadgetThemeService = new JmwsIdMyGadgetThemeService();
   $idMyGadgetService = $jmwsIdMyGadgetThemeService->getService();
-  // $jmwsIdMyGadget = $idMyGadgetService->jmwsIdMyGadget;
+
   $vars['sanityCheckText'] = $jmwsIdMyGadget->getSanityCheckString();
   $logoNameTitleDescriptionHtml = $jmwsIdMyGadget->getLogoNameTitleDescriptionHtml();
   // $vars['page.header'] = $logoNameTitleDescriptionHtml;
@@ -23,7 +30,6 @@ function idmygadget_stark_preprocess_page( &$vars ) {
     drupal_set_message( t($jmwsIdMyGadgetThemeService ->getErrorMessage()), 'error' );
   }
 }
-
 /**
  * Add "user-scalable" attribute to viewport meta tag
  * References:
