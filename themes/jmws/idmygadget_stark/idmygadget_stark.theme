@@ -21,6 +21,7 @@ function idmygadget_stark_preprocess_page( &$vars ) {
   $idMyGadgetService = $jmwsIdMyGadgetThemeService->getService();
 
   $vars['sanityCheckText'] = $jmwsIdMyGadget->getSanityCheckString();
+  $vars['jqmDataRolePage'] = $jmwsIdMyGadget->jqmDataRole['page'];
   $logoNameTitleDescriptionHtml = $jmwsIdMyGadget->getLogoNameTitleDescriptionHtml();
   // $vars['page.header'] = $logoNameTitleDescriptionHtml;
   // error_log( 'strlen($logoNameTitleDescriptionHtml): ' . strlen($logoNameTitleDescriptionHtml) );
