@@ -22,6 +22,8 @@ function idmygadget_stark_preprocess_page( &$vars ) {
 
   $vars['sanityCheckText'] = $jmwsIdMyGadget->getSanityCheckString();
   $vars['jqmDataRolePage'] = $jmwsIdMyGadget->jqmDataRole['page'];
+  $vars['jqmDataRoleHeader'] = $jmwsIdMyGadget->jqmDataRole['header'];
+  $vars['jqmDataThemeAttribute'] = $jmwsIdMyGadget->jqmDataThemeAttribute;
   $logoNameTitleDescriptionHtml = $jmwsIdMyGadget->getLogoNameTitleDescriptionHtml();
   // $vars['page.header'] = $logoNameTitleDescriptionHtml;
   // error_log( 'strlen($logoNameTitleDescriptionHtml): ' . strlen($logoNameTitleDescriptionHtml) );
