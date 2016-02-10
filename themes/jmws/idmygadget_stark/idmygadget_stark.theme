@@ -29,6 +29,13 @@ function idmygadget_stark_preprocess_page( &$vars ) {
   // error_log( 'strlen($logoNameTitleDescriptionHtml): ' . strlen($logoNameTitleDescriptionHtml) );
   $vars['logoNameTitleDescriptionHtml'] = $logoNameTitleDescriptionHtml;
 
+  if ( $jmwsIdMyGadget->phoneHeaderNavThisDevice || $jmwsIdMyGadget->phoneFooterNavThisDevice ) {
+    $vars['phoneHeaderNav'] = 'phoneHeaderNav here!';
+    $vars['phoneFooterNav'] = 'phoneFooterNav here!';
+    $vars['page']['primary_menu'] = '';
+    $vars['page']['secondary_menu'] = '';
+  }
+
   if ( ! isset($idMyGadgetService) ) {
     drupal_set_message( t($jmwsIdMyGadgetThemeService ->getErrorMessage()), 'error' );
   }
