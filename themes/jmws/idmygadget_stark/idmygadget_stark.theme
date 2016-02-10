@@ -20,6 +20,7 @@ function idmygadget_stark_preprocess_page( &$vars ) {
   $jmwsIdMyGadgetThemeService = new JmwsIdMyGadgetThemeService();
   $idMyGadgetService = $jmwsIdMyGadgetThemeService->getService();
 
+  
   $vars['sanityCheckText'] = $jmwsIdMyGadget->getSanityCheckString();
   $vars['jqmDataRolePage'] = $jmwsIdMyGadget->jqmDataRole['page'];
   $vars['jqmDataRoleHeader'] = $jmwsIdMyGadget->jqmDataRole['header'];
@@ -30,8 +31,8 @@ function idmygadget_stark_preprocess_page( &$vars ) {
   $vars['logoNameTitleDescriptionHtml'] = $logoNameTitleDescriptionHtml;
 
   if ( $jmwsIdMyGadget->phoneHeaderNavThisDevice || $jmwsIdMyGadget->phoneFooterNavThisDevice ) {
-    $vars['phoneHeaderNav'] = 'phoneHeaderNav here!';
-    $vars['phoneFooterNav'] = 'phoneFooterNav here!';
+    $vars['phoneHeaderNav'] = 'define phoneHeaderNav in idmygadget_stark_preprocess_page as phoneHeaderNav';
+    $vars['phoneFooterNav'] = 'define phoneFooterNav in idmygadget_stark_preprocess_page as phoneFooterNav';
     $vars['page']['primary_menu'] = '';
     $vars['page']['secondary_menu'] = '';
   }
@@ -39,6 +40,16 @@ function idmygadget_stark_preprocess_page( &$vars ) {
   if ( ! isset($idMyGadgetService) ) {
     drupal_set_message( t($jmwsIdMyGadgetThemeService ->getErrorMessage()), 'error' );
   }
+}
+/**
+ * Inspired by template_preprocess_html in includes/theme.inc
+ * @param unknown $variables
+ */
+function idmygadget_stark_preprocess_html(&$variables) {
+  global $jmwsIdMyGadget;
+  $variables['html']['page'] = 'idmygadget_stark_preprocess_html html page';
+  $variables['page_top'] = 'define phoneHeaderNav in idmygadget_stark_preprocess_html as page_top';
+  $variables['page_bottom'] = 'define phoneFooterNav in idmygadget_stark_preprocess_html as page_bottom';
 }
 /**
  * Add "user-scalable" attribute to viewport meta tag
